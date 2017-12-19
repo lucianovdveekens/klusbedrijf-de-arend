@@ -33,13 +33,16 @@
     "magnific-popup": "^1.1.0"
   },
   "devDependencies": {
-    "browser-sync": "2.18.13",
+    "browser-sync": "^2.18.13",
     "gulp": "^3.9.1",
-    "gulp-clean-css": "3.9.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
     "gulp-filter": "^5.0.1",
-    "gulp-header": "1.8.9",
+    "gulp-header": "^1.8.9",
+    "gulp-jshint": "^2.0.4",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
-    "gulp-uglify": "3.0.0"
+    "gulp-uglify": "^3.0.0",
+    "jshint": "^2.9.5"
   }
 }
