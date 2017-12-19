@@ -198,7 +198,7 @@
 .fa-star:before {
   content: "\f005";
 }
-.fa-star-o:before {
+.fa-cog-o:before {
   content: "\f006";
 }
 .fa-user:before {
@@ -579,7 +579,7 @@
 .fa-thumbs-o-down:before {
   content: "\f088";
 }
-.fa-star-half:before {
+.fa-cog-half:before {
   content: "\f089";
 }
 .fa-heart-o:before {
@@ -989,9 +989,9 @@
 .fa-reply-all:before {
   content: "\f122";
 }
-.fa-star-half-empty:before,
-.fa-star-half-full:before,
-.fa-star-half-o:before {
+.fa-cog-half-empty:before,
+.fa-cog-half-full:before,
+.fa-cog-half-o:before {
   content: "\f123";
 }
 .fa-location-arrow:before {

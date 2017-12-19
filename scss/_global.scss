@@ -12,10 +12,10 @@ h6 {
   @include heading-font;
 }
 
-// Custom Horizontal Rule with Star Icon
-hr.star-light,
-hr.star-dark {
-  max-width: 15rem;
+// Custom Horizontal Rule with Cog Icon
+hr.cog-light,
+hr.cog-dark {
+  max-width: 25rem;
   padding: 0;
   text-align: center;
   border: none;
@@ -24,29 +24,29 @@ hr.star-dark {
   margin-bottom: 2.5rem;
 }
 
-hr.star-light:after,
-hr.star-dark:after {
+hr.cog-light:after,
+hr.cog-dark:after {
   position: relative;
   top: -.8em;
   display: inline-block;
   padding: 0 0.25em;
-  content: '\f005';
+  content: '\f013';
   font-family: FontAwesome;
   font-size: 2em;
 }
 
-hr.star-light {
+hr.cog-light {
   border-color: $white;
 }
-hr.star-light:after {
+hr.cog-light:after {
   color: $white;
   background-color: $primary;
 }
 
-hr.star-dark {
+hr.cog-dark {
   border-color: $secondary;
 }
-hr.star-dark:after {
+hr.cog-dark:after {
   color: $secondary;
   background-color: white;
 }

@@ -15,9 +15,9 @@ h6 {
   font-weight: 700;
   font-family: 'Montserrat'; }
 
-hr.star-light,
-hr.star-dark {
-  max-width: 15rem;
+hr.cog-light,
+hr.cog-dark {
+  max-width: 25rem;
   padding: 0;
   text-align: center;
   border: none;
@@ -25,27 +25,27 @@ hr.star-dark {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem; }
 
-hr.star-light:after,
-hr.star-dark:after {
+hr.cog-light:after,
+hr.cog-dark:after {
   position: relative;
   top: -.8em;
   display: inline-block;
   padding: 0 0.25em;
-  content: '\f005';
+  content: '\f013';
   font-family: FontAwesome;
   font-size: 2em; }
 
-hr.star-light {
+hr.cog-light {
   border-color: #fff; }
 
-hr.star-light:after {
+hr.cog-light:after {
   color: #fff;
   background-color: #818182; }
 
-hr.star-dark {
+hr.cog-dark {
   border-color: #000000; }
 
-hr.star-dark:after {
+hr.cog-dark:after {
   color: #000000;
   background-color: white; }
 
