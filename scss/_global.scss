@@ -51,6 +51,45 @@ hr.cog-dark:after {
   background-color: white;
 }
 
+// Custom horizontal line with company logo
+hr.eagle-light,
+hr.eagle-dark {
+  max-width: 30rem;
+  padding: 0;
+  text-align: center;
+  border: none;
+  border-top: solid 0.25rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+hr.eagle-light:after,
+hr.eagle-dark:after {
+  position: relative;
+  top: -2.1em;
+  display: inline-block;
+  padding: 0 0.25em;
+  content: "";
+  background-size: 60px 60px;
+  background-position: center;
+  width: 65px;
+  height: 65px;
+}
+
+hr.eagle-dark:after {
+  background-image: url(../img/eagle-dark.png);
+}
+hr.eagle-dark {
+  color: $secondary;
+}
+
+hr.eagle-light:after {
+  background-image: url(../img/eagle-light.png);
+}
+hr.eagle-light {
+  color: $white;
+}
+
 // Section Padding Settings
 section {
   padding: 6rem 0;
