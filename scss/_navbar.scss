@@ -29,6 +29,10 @@
     font-size: 80%;
     padding: 0.8rem;
   }
+
+  .navbar-image {
+    width: 30px;
+  }
 }
 @media(min-width:992px) {
   #mainNav {
@@ -55,6 +59,10 @@
         color: $white;
         background: $primary;
       }
+    }
+
+    .navbar-image {
+      width: 50px;
     }
   }
   #mainNav.navbar-shrink {
