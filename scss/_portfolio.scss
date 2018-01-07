@@ -1,6 +1,5 @@
 // Styling for the portfolio section
 .portfolio {
-  margin-bottom: -15px;
   .portfolio-item {
     position: relative;
     display: block;
@@ -21,7 +20,6 @@
     }
   }
   @media (min-width: 576px) {
-    margin-bottom: -30px;
     .portfolio-item {
       margin-bottom: 30px;
     }
