@@ -132,3 +132,8 @@ section {
     line-height: 3.1rem;
   }
 }
+
+// Add a small image border
+img.img-border {
+  border: 2px solid $secondary;
+}
