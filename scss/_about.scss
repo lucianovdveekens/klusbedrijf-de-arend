@@ -1,0 +1,14 @@
+// Scale the picture in the about section according to the screen width
+.about-img {
+  width: 40%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 30px;
+  border: 1px solid $secondary;
+
+  @media (min-width: 992px) {
+    width: 100%;
+    margin-bottom: 0px;
+  }
+}
