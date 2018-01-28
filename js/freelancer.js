@@ -73,3 +73,15 @@
   });
 
 })(jQuery); // End of use strict
+
+$(document).ready(function(){
+  $('.slider').slick({
+    dots: true,
+    fade: true,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: false,
+    pauseOnFocus: false
+  });
+});
