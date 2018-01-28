@@ -29,10 +29,34 @@ gulp.task('sass', function() {
       stream: true
     }))
 });
+gulp.task('sass', function() {
+  return gulp.src('scss/slick.scss')
+    .pipe(sass())
+    .pipe(header(banner, {
+      pkg: pkg
+    }))
+    .pipe(gulp.dest('css'))
+    .pipe(browserSync.reload({
+      stream: true
+    }))
+});
 
 // Minify compiled CSS
 gulp.task('minify-css', ['sass'], function() {
   return gulp.src('css/freelancer.css')
+    .pipe(cleanCSS({
+      compatibility: 'ie8'
+    }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(gulp.dest('css'))
+    .pipe(browserSync.reload({
+      stream: true
+    }))
+});
+gulp.task('minify-css', ['sass'], function() {
+  return gulp.src('css/slick.css')
     .pipe(cleanCSS({
       compatibility: 'ie8'
     }))
