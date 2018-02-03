@@ -17,20 +17,8 @@ var banner = ['/*!\n',
   ''
 ].join('');
 
-// Compiles SCSS files from /scss into /css
 gulp.task('sass', function() {
-  return gulp.src('scss/freelancer.scss')
-    .pipe(sass())
-    .pipe(header(banner, {
-      pkg: pkg
-    }))
-    .pipe(gulp.dest('css'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
-});
-gulp.task('sass', function() {
-  return gulp.src('scss/slick.scss')
+  return gulp.src('scss/*.scss')
     .pipe(sass())
     .pipe(header(banner, {
       pkg: pkg
@@ -43,20 +31,7 @@ gulp.task('sass', function() {
 
 // Minify compiled CSS
 gulp.task('minify-css', ['sass'], function() {
-  return gulp.src('css/freelancer.css')
-    .pipe(cleanCSS({
-      compatibility: 'ie8'
-    }))
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(gulp.dest('css'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
-});
-gulp.task('minify-css', ['sass'], function() {
-  return gulp.src('css/slick.css')
+  return gulp.src(['css/*.css', '!css/*.min.css'])
     .pipe(cleanCSS({
       compatibility: 'ie8'
     }))

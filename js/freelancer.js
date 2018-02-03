@@ -74,6 +74,7 @@
 
 })(jQuery); // End of use strict
 
+// TODO: consider putting this in a separate file
 $(document).ready(function(){
   $('.slider').slick({
     dots: true,
@@ -82,6 +83,13 @@ $(document).ready(function(){
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: false,
-    pauseOnFocus: false
+    pauseOnFocus: false,
+    mobileFirst: true,
+  });
+
+  $('.slider').slickLightbox({
+    src: 'src',
+    itemSelector: '.wrapper img',
+    navigateByKeyboard: true,
   });
 });
