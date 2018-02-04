@@ -5,6 +5,7 @@
   @include heading-font;
   .navbar-brand {
     color: $white;
+    font-size: 1em;
   }
   .navbar-nav {
     margin-top: 1rem;
@@ -29,11 +30,18 @@
     font-size: 80%;
     padding: 0.8rem;
   }
-
+  
   .navbar-image {
     width: 30px;
   }
 }
+
+@media (min-width: 768px) {
+  #mainNav .navbar-brand {
+    font-size: 1.25em;
+  }
+}
+
 @media(min-width:992px) {
   #mainNav {
     padding-top: 1.5rem;
@@ -60,7 +68,7 @@
         background: $primary;
       }
     }
-
+    
     .navbar-image {
       width: 50px;
     }
