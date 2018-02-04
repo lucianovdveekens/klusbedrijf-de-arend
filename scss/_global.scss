@@ -87,7 +87,7 @@ hr.eagle-dark {
 }
 
 hr.eagle-light:after {
-  background-image: url(../img/eagle-light.png);
+  background-image: url(../img/eagle-light2.png);
 }
 hr.eagle-light {
   color: $white;
@@ -142,7 +142,7 @@ section {
   border: 2px solid $secondary;
 }
 
-div.wrapper {
+.wrapper {
   height: 100%;
   position: relative; 
   background-size: cover;
@@ -151,7 +151,7 @@ div.wrapper {
   border: 2px solid $secondary;
 }
 
-div.wrapper img {
+.wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -160,9 +160,18 @@ div.wrapper img {
 
 .slider {
   position: relative;
-  width: 100%;
+  margin: auto;
+  
+  width: 80%;
   /* 40:29 Aspect Ratio */
-  padding-top: 72.5%;
+  padding-top: calc((29/40) * 80%);
+  
+  
+  @media (min-width: 576px) {
+    width: 100%;
+    /* 40:29 Aspect Ratio */
+    padding-top: calc((29/40) * 100%);
+  }
 }
 
 .slider .slick-list {
@@ -198,7 +207,50 @@ header .container {
   background-size: cover;
   padding: 30px 0;
   
-  @media (min-width: 992px) {
-    padding: 100px 0;
+  @media (min-width: 768px) {
+    padding: 50px 0;
   }
+  
+  @media (min-width: 992px) {
+    padding: 110px 0;
+  }
+}
+
+.hline {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: block;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hline img {
+  width: 60px;
+}
+
+.hline:before, 
+.hline:after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  width: 30%;
+  border-top-style: solid;
+  border-top-width: 0.25rem;
+}
+.hline:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+.hline:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+
+.light {
+  color: white;
+}
+
+.dark {
+  color: black;
 }
