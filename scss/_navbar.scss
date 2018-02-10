@@ -13,15 +13,12 @@
     li.nav-item {
       a.nav-link {
         color: $white;
-        &:hover {
-          color: $primary;
-        }
         &:active,
         &:focus {
           color: $white;
         }
         &.active {
-          color: $primary;
+          // text-decoration: underline;
         }
       }
     }
