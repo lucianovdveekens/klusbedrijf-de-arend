@@ -7,6 +7,8 @@ var uglify = require('gulp-uglify');
 var filter = require('gulp-filter');
 var del = require('del');
 var inject = require('gulp-inject');
+var imagemin = require('gulp-imagemin');
+var imageminMozjpeg = require('imagemin-mozjpeg');
 var pkg = require('./package.json');
 
 gulp.task('sass', function() {
@@ -20,12 +22,12 @@ gulp.task('sass', function() {
 
 gulp.task('html:dist', function () {
   return gulp.src('app/*.html')
-    .pipe(gulp.dest('dist'));
+  .pipe(gulp.dest('dist'));
 });
 
 gulp.task('vendor:dist', ['vendor'], function () {
   return gulp.src('app/vendor/**/*')
-    .pipe(gulp.dest('dist/vendor'));
+  .pipe(gulp.dest('dist/vendor'));
 });
 
 gulp.task('css:dist', ['sass'], function() {
@@ -56,12 +58,17 @@ gulp.task('js:dist', function() {
 
 gulp.task('images:dist', function () {
   return gulp.src('app/images/**/*')
-    .pipe(gulp.dest('dist/images'));
+  .pipe(imagemin([
+    imageminMozjpeg({
+      quality: 80
+    })
+  ]))
+  .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('mail:dist', function () {
   return gulp.src('app/mail/*.php')
-    .pipe(gulp.dest('dist/mail'));
+  .pipe(gulp.dest('dist/mail'));
 });
 
 gulp.task('clean', function() {
