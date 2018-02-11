@@ -1,6 +1,6 @@
 // Scale the picture in the about section according to the screen width
 .about-img {
-  width: 50%;
+  width: 40%;
   display: block;
   margin-right: auto;
   margin-left: auto;
@@ -12,7 +12,7 @@
   }
 
   @media (min-width: 992px) {
-    width: 100%;
+    width: 85%;
     margin-bottom: 0px;
   }
 
