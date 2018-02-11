@@ -41,6 +41,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-filter": "^5.0.1",
     "gulp-header": "^1.8.9",
+    "gulp-image-resize": "^0.13.0",
     "gulp-imagemin": "^4.1.0",
     "gulp-inject": "^4.3.0",
     "gulp-jshint": "^2.0.4",
@@ -48,6 +49,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
     "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-pngquant": "^5.0.1",
     "jshint": "^2.9.5"
   }
 }

@@ -9,6 +9,8 @@ var del = require('del');
 var inject = require('gulp-inject');
 var imagemin = require('gulp-imagemin');
 var imageminMozjpeg = require('imagemin-mozjpeg');
+var imageminPngquant = require('imagemin-pngquant');
+var imageResize = require('gulp-image-resize');
 var pkg = require('./package.json');
 
 gulp.task('sass', function() {
@@ -23,11 +25,6 @@ gulp.task('sass', function() {
 gulp.task('html:dist', function () {
   return gulp.src('app/*.html')
   .pipe(gulp.dest('dist'));
-});
-
-gulp.task('vendor:dist', ['vendor'], function () {
-  return gulp.src('app/vendor/**/*')
-  .pipe(gulp.dest('dist/vendor'));
 });
 
 gulp.task('css:dist', ['sass'], function() {
@@ -57,12 +54,23 @@ gulp.task('js:dist', function() {
 });
 
 gulp.task('images:dist', function () {
-  return gulp.src('app/images/**/*')
+  return gulp.src('app/images/**/*.{jpg,png}')
+  .pipe(imageResize({ 
+    width: 1200
+  }))
   .pipe(imagemin([
     imageminMozjpeg({
+      quality: 85
+    }),
+    imageminPngquant({
       quality: 80
-    })
+    }),    
   ]))
+  .pipe(gulp.dest('dist/images'));
+});
+
+gulp.task('favicon:dist', function () {
+  return gulp.src('app/images/favicon.ico')
   .pipe(gulp.dest('dist/images'));
 });
 
@@ -75,8 +83,6 @@ gulp.task('clean', function() {
   return del.sync('dist');
 })
 
-// Copy vendor files from /node_modules into /vendor
-// NOTE: requires `npm install` before running!
 gulp.task('vendor', function() {
   gulp.src([
     'node_modules/bootstrap/dist/**/*',
@@ -123,6 +129,11 @@ gulp.task('vendor', function() {
   .pipe(gulp.dest('app/vendor/slick-lightbox'))
 })
 
+gulp.task('vendor:dist', ['vendor'], function () {
+  return gulp.src('app/vendor/**/*')
+  .pipe(gulp.dest('dist/vendor'));
+});
+
 gulp.task('inject', ['sass'], function () {
   return gulp.src('app/index.html')
   .pipe(inject(gulp.src('app/css/*.css'), { relative:true } ))
@@ -131,7 +142,7 @@ gulp.task('inject', ['sass'], function () {
 });
 
 // Copy everything to dist
-gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'vendor:dist', 'images:dist', 'mail:dist']);
+gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'favicon:dist', 'vendor:dist', 'images:dist', 'mail:dist']);
 
 gulp.task('inject:dist', ['copy:dist'], function () {
   return gulp.src('dist/index.html')
