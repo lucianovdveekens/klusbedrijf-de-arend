@@ -6,6 +6,7 @@ var rename = require("gulp-rename");
 var uglify = require('gulp-uglify');
 var filter = require('gulp-filter');
 var del = require('del');
+var inject = require('gulp-inject');
 var pkg = require('./package.json');
 
 gulp.task('sass', function() {
@@ -17,8 +18,17 @@ gulp.task('sass', function() {
   }))
 });
 
-// Minify compiled CSS
-gulp.task('minify-css', ['sass'], function() {
+gulp.task('html:dist', function () {
+  return gulp.src('app/*.html')
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('vendor:dist', ['vendor'], function () {
+  return gulp.src('app/vendor/**/*')
+    .pipe(gulp.dest('dist/vendor'));
+});
+
+gulp.task('css:dist', ['sass'], function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({
     compatibility: 'ie8'
@@ -32,9 +42,8 @@ gulp.task('minify-css', ['sass'], function() {
   }))
 });
 
-// Minify custom JS
-gulp.task('minify-js', function() {
-  return gulp.src('tmp/js/*.js')
+gulp.task('js:dist', function() {
+  return gulp.src('app/js/*.js')
   .pipe(uglify())
   .pipe(rename({
     suffix: '.min'
@@ -45,13 +54,23 @@ gulp.task('minify-js', function() {
   }))
 });
 
-gulp.task('clean:dist', function() {
+gulp.task('images:dist', function () {
+  return gulp.src('app/images/**/*')
+    .pipe(gulp.dest('dist/images'));
+});
+
+gulp.task('mail:dist', function () {
+  return gulp.src('app/mail/*.php')
+    .pipe(gulp.dest('dist/mail'));
+});
+
+gulp.task('clean', function() {
   return del.sync('dist');
 })
 
 // Copy vendor files from /node_modules into /vendor
 // NOTE: requires `npm install` before running!
-gulp.task('vendors', function() {
+gulp.task('vendor', function() {
   gulp.src([
     'node_modules/bootstrap/dist/**/*',
     '!**/npm.js',
@@ -89,7 +108,7 @@ gulp.task('vendors', function() {
     '!bower_components/slick-carousel/slick/*.rb', 
   ])
   .pipe(gulp.dest('app/vendor/slick-carousel'))
-
+  
   gulp.src([
     'bower_components/slick-lightbox/dist/slick-lightbox.min.js', 
     'bower_components/slick-lightbox/dist/slick-lightbox.css'
@@ -97,8 +116,25 @@ gulp.task('vendors', function() {
   .pipe(gulp.dest('app/vendor/slick-lightbox'))
 })
 
-// Default task
-gulp.task('default', ['sass', 'minify-css', 'minify-js', 'vendors']);
+gulp.task('inject', ['sass'], function () {
+  return gulp.src('app/index.html')
+  .pipe(inject(gulp.src('app/css/*.css'), { relative:true } ))
+  .pipe(inject(gulp.src('app/js/*.js'), { relative:true } ))
+  .pipe(gulp.dest('app'));
+});
+
+// Copy everything to dist
+gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'vendor:dist', 'images:dist', 'mail:dist']);
+
+gulp.task('inject:dist', ['copy:dist'], function () {
+  return gulp.src('dist/index.html')
+  .pipe(inject(gulp.src('dist/css/*.css'), { relative:true } ))
+  .pipe(inject(gulp.src('dist/js/*.js'), { relative:true } ))
+  .pipe(gulp.dest('dist'));
+});
+
+// Build dist
+gulp.task('build', ['inject:dist']);
 
 // Configure the browserSync task
 gulp.task('browserSync', function() {
@@ -109,12 +145,12 @@ gulp.task('browserSync', function() {
   })
 })
 
-// Dev task with browserSync
-gulp.task('dev', ['browserSync', 'sass', 'minify-css', 'minify-js'], function() {
+// Default task
+gulp.task('default', ['sass', 'vendor', 'inject']);
+
+// Browser Sync for live reloads
+gulp.task('dev', ['browserSync', 'default'], function() {
   gulp.watch('app/scss/**/*.scss', ['sass']);
-  gulp.watch('app/css/**/*.css', ['minify-css']);
-  gulp.watch('app/js/**/*.js', ['minify-js']);
   gulp.watch('app/*.html', browserSync.reload);
-  // is this needed? Doesn't minify-js already trigger a reload?
   gulp.watch('app/js/**/*.js', browserSync.reload); 
 });
