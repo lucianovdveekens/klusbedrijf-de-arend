@@ -53,14 +53,37 @@ gulp.task('js:dist', function() {
   }))
 });
 
-gulp.task('images:dist', function () {
-  return gulp.src('app/images/**/*.{jpg,png}')
+gulp.task('portfolio-images', function () {
+  return gulp.src('app/images/portfolio/**/*.jpg')
   .pipe(imageResize({ 
-    width: 1200
+    width: 1200,
+    height: 675,
+    crop: true,
+    upscale: false
   }))
   .pipe(imagemin([
+    imagemin.jpegtran({
+      progressive: true
+    }),
     imageminMozjpeg({
-      quality: 85
+      quality: 80
+    }),
+  ]))
+  .pipe(gulp.dest('dist/images/portfolio'));
+});
+
+gulp.task('other-images', function () {
+  return gulp.src('app/images/*.{gif,png,jpg}')
+  .pipe(imageResize({ 
+    width: 300,
+    upscale: false
+  }))
+  .pipe(imagemin([
+    imagemin.jpegtran({
+      progressive: true
+    }),
+    imageminMozjpeg({
+      quality: 80
     }),
     imageminPngquant({
       quality: 80
@@ -140,6 +163,8 @@ gulp.task('inject', ['sass'], function () {
   .pipe(inject(gulp.src('app/js/*.js'), { relative:true } ))
   .pipe(gulp.dest('app'));
 });
+
+gulp.task('images:dist', ['portfolio-images', 'other-images']);
 
 // Copy everything to dist
 gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'favicon:dist', 'vendor:dist', 'images:dist', 'mail:dist']);
