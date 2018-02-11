@@ -1,0 +1,6 @@
+{
+  "name": "klusbedrijf-de-arend",
+  "dependencies": {
+    "slick-lightbox": "^0.2.12"
+  }
+}
