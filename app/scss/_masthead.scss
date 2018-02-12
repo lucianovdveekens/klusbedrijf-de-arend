@@ -10,6 +10,9 @@ header.masthead {
     font-size: 1.3rem;
     @include body-font;
   }
+  h4 {
+    font-size: 1rem;
+  }
 }
 @media (min-width: 992px) {
   header.masthead {
@@ -23,6 +26,8 @@ header.masthead {
     h2 {
       font-size: 1.75em;
     }
-
+    h4 {
+      font-size: 1.5rem;
+    }
   }
 }
