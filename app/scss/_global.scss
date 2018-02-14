@@ -140,7 +140,11 @@ section {
 .wrapper {
   height: 100%;
   position: relative; 
-  border: 1px solid $secondary;
+  border: 2px solid white;
+  
+  // border-color: white;
+  // border-width: 1px 1px 1px 1px;
+  // border-style: solid;
 }
 
 .wrapper img {
@@ -180,13 +184,15 @@ section {
 }
 
 .slick-dots li.slick-active button:before {
-  opacity: 1 !important;
-  color: white !important;
+  content: '•';
 }
 
 .slick-dots li button:before {
-  // opacity: .5 !important;
+  content: '◦';
   color: white !important;
+  font-size: 40px;
+  opacity: 1 !important;
+  font-family: 'Times New Roman';
 }
 
 .slick-dots li {
@@ -198,7 +204,7 @@ section {
 }
 
 .slick-dots {
-  bottom: -40px;
+  bottom: -5px;
 }
 
 .header {
