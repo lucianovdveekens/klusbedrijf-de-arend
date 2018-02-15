@@ -17,15 +17,16 @@
         &:focus {
           color: $white;
         }
-        &.active {
-          // text-decoration: underline;
-        }
       }
     }
   }
   .navbar-toggler {
     font-size: 80%;
     padding: 0.8rem;
+    background: $primary !important;
+    &:active {
+      background: #0062cc !important;
+    }
   }
   
   .navbar-image {
