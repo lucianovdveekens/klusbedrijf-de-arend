@@ -58,8 +58,7 @@ gulp.task('portfolio-images', function () {
   .pipe(imageResize({ 
     width: 1200,
     height: 675,
-    crop: true,
-    upscale: false
+    upscale: false,
   }))
   .pipe(imagemin([
     imagemin.jpegtran({
