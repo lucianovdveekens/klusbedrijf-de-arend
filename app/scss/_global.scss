@@ -137,19 +137,21 @@ section {
   }
 }
 
-.wrapper {
+.slick-slide:not(.slick-lightbox-slick-item) {
   height: 100%;
   position: relative; 
   border: 2px solid white;
   cursor: pointer;
 }
 
-.wrapper img {
+.slick-slide img:not(.slick-lightbox-slick-img) {
   width: 100%;
   height: 100%;
   object-fit: cover;
   position: absolute; 
 }
+
+
 
 .slider {
   position: relative;

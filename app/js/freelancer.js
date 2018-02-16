@@ -89,7 +89,7 @@ $(document).ready(function(){
 
   $('.slider').slickLightbox({
     src: 'src',
-    itemSelector: '.wrapper img',
+    itemSelector: '.slick-slide img',
     navigateByKeyboard: true,
   });
 });
