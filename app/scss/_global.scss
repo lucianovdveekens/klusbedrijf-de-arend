@@ -223,20 +223,36 @@ section {
   max-width: 50%;
 }
 
-.hline {
+// *** LOGO
+
+.black-logo-hline, .white-logo-hline {
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: block;
   overflow: hidden;
   text-align: center;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60px 60px;
+  height: 60px;
+  
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.hline img {
-  width: 60px;
+.black-logo-hline {
+  background-image: url("../images/eagle-dark.png");  
+  color: black;  
 }
 
-.hline:before, 
-.hline:after {
+.white-logo-hline {
+  background-image: url("../images/eagle-light.png");  
+  color: white;
+}
+
+.black-logo-hline:before, .black-logo-hline:after, 
+.white-logo-hline:before, .white-logo-hline:after {
   content: "";
   display: inline-block;
   vertical-align: middle;
@@ -244,20 +260,15 @@ section {
   width: 30%;
   border-top-style: solid;
   border-top-width: 0.25rem;
+  margin-top: 30px;
 }
-.hline:before {
-  right: 0.5em;
+
+.black-logo-hline:before, .white-logo-hline:before {
+  right: 2.5em;
   margin-left: -50%;
 }
-.hline:after {
-  left: 0.5em;
+
+.black-logo-hline:after, .white-logo-hline:after {
+  left: 2.5em;
   margin-right: -50%;
-}
-
-.light {
-  color: white;
-}
-
-.dark {
-  color: black;
 }
