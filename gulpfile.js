@@ -11,6 +11,7 @@ var imagemin = require('gulp-imagemin');
 var imageminMozjpeg = require('imagemin-mozjpeg');
 var imageminPngquant = require('imagemin-pngquant');
 var imageResize = require('gulp-image-resize');
+var newer = require('gulp-newer');
 var pkg = require('./package.json');
 
 gulp.task('sass', function() {
@@ -55,6 +56,7 @@ gulp.task('js:dist', function() {
 
 gulp.task('portfolio-images', function () {
   return gulp.src('app/images/portfolio/**/*.jpg')
+  .pipe(newer('dist/images/portfolio'))
   .pipe(imageResize({ 
     width: 1200,
     height: 675,
@@ -73,6 +75,7 @@ gulp.task('portfolio-images', function () {
 
 gulp.task('other-images', function () {
   return gulp.src('app/images/*.{gif,png,jpg}')
+  .pipe(newer('dist/images'))
   .pipe(imageResize({ 
     width: 300,
     upscale: false
