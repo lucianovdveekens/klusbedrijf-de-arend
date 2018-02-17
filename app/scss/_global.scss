@@ -151,7 +151,12 @@ section {
   position: absolute; 
 }
 
-
+.slider img {
+  // Set the height of images in the projects to 0 to improve rendering.
+  // The images will receive their actual height later in the rendering process when 
+  // Slick starts adding its own divs and classes.
+  height: 0;
+}
 
 .slider {
   position: relative;
@@ -167,7 +172,7 @@ section {
     /* 40:29 Aspect Ratio */
     padding-top: calc((29/40) * 100%);
   }
-}
+}  
 
 .slider .slick-list {
 	height:100%;
