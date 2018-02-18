@@ -1,11 +1,14 @@
+
+
+
 // Styling for the navbar
 #mainNav {
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
   @include heading-font;
   .navbar-brand {
-    color: $white;
     font-size: 1em;
+    color: $white;
   }
   .navbar-nav {
     margin-top: 1rem;
@@ -21,8 +24,9 @@
     }
   }
   .navbar-toggler {
-    font-size: 80%;
+    font-size: 0.8rem;
     padding: 0.8rem;
+    
     background: $primary !important;
     &:active {
       background: #0062cc !important;
@@ -31,6 +35,18 @@
   
   .navbar-image {
     width: 30px;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .navbar {
+    button {
+      font-size: 0px !important;
+    }
+    button > i {
+      font-size: 0.8rem;
+    }
   }
 }
 
