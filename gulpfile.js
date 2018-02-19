@@ -28,6 +28,11 @@ gulp.task('html:dist', function () {
   .pipe(gulp.dest('dist'));
 });
 
+gulp.task('htaccess:dist', function () {
+  return gulp.src('app/.htaccess')
+  .pipe(gulp.dest('dist'));
+});
+
 gulp.task('css:dist', ['sass'], function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({
@@ -169,7 +174,7 @@ gulp.task('inject', ['sass'], function () {
 gulp.task('images:dist', ['portfolio-images', 'other-images']);
 
 // Copy everything to dist
-gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'favicon:dist', 'vendor:dist', 'images:dist', 'mail:dist']);
+gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'htaccess:dist', 'favicon:dist', 'vendor:dist', 'images:dist', 'mail:dist']);
 
 gulp.task('inject:dist', ['copy:dist'], function () {
   return gulp.src('dist/index.html')
