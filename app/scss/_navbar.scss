@@ -1,10 +1,7 @@
-
-
-
 // Styling for the navbar
 #mainNav {
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   @include heading-font;
   .navbar-brand {
     font-size: 1em;
