@@ -13,6 +13,9 @@ var imageminPngquant = require('imagemin-pngquant');
 var imageResize = require('gulp-image-resize');
 var newer = require('gulp-newer');
 var pkg = require('./package.json');
+var rev = require('gulp-rev');
+var clean = require('gulp-clean');
+
 
 gulp.task('sass', function() {
   return gulp.src('app/scss/**/*.scss')
@@ -33,7 +36,12 @@ gulp.task('htaccess:dist', function () {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('css:dist', ['sass'], function() {
+gulp.task('clean-css', function () {
+  return gulp.src('dist/css/*.min.css')
+  .pipe(clean()) 
+});
+
+gulp.task('css:dist', ['clean-css', 'sass'], function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({
     compatibility: 'ie8'
@@ -41,18 +49,25 @@ gulp.task('css:dist', ['sass'], function() {
   .pipe(rename({
     suffix: '.min'
   }))
+  .pipe(rev())
   .pipe(gulp.dest('dist/css'))
   .pipe(browserSync.reload({
     stream: true
   }))
 });
 
-gulp.task('js:dist', function() {
+gulp.task('clean-js', function () {
+  return gulp.src('dist/js/*.min.js')
+  .pipe(clean()) 
+});
+
+gulp.task('js:dist', ['clean-js'], function() {
   return gulp.src('app/js/*.js')
   .pipe(uglify())
   .pipe(rename({
     suffix: '.min'
   }))
+  .pipe(rev())
   .pipe(gulp.dest('dist/js'))
   .pipe(browserSync.reload({
     stream: true
