@@ -15,7 +15,6 @@ var pkg = require('./package.json');
 var rev = require('gulp-rev');
 var clean = require('gulp-clean');
 var runSequence = require('run-sequence');
-var cache = require('gulp-cache');
 
 
 gulp.task('sass', function() {
@@ -57,15 +56,15 @@ gulp.task('js:dist', function() {
 
 gulp.task('portfolio-images', function () {
   return gulp.src('app/images/portfolio/**/*.jpg')
-  .pipe(cache(imageResize({ width: 1200, height: 675, upscale: false })))
-  .pipe(cache(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }) ])))
+  .pipe(imageResize({ width: 1200, height: 675, upscale: false }))
+  .pipe(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }) ]))
   .pipe(gulp.dest('dist/images/portfolio'));
 });
 
 gulp.task('other-images', function () {
   return gulp.src('app/images/*.{gif,png,jpg}')
-  .pipe(cache(imageResize({ width: 300, upscale: false })))
-  .pipe(cache(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }), imageminPngquant({ quality: 80 }) ])))
+  .pipe(imageResize({ width: 300, upscale: false }))
+  .pipe(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }), imageminPngquant({ quality: 80 }) ]))
   .pipe(gulp.dest('dist/images'));
 });
 
