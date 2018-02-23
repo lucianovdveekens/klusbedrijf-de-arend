@@ -15,6 +15,7 @@ var pkg = require('./package.json');
 var rev = require('gulp-rev');
 var clean = require('gulp-clean');
 var runSequence = require('run-sequence');
+var htmlmin = require('gulp-htmlmin');
 
 
 gulp.task('sass', function() {
@@ -152,10 +153,16 @@ gulp.task('inject:dist', ['copy:dist'], function () {
   .pipe(gulp.dest('dist'));
 });
 
+
+gulp.task('minify-html', function () {
+  return gulp.src('dist/*.html')
+  .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))  
+  .pipe(gulp.dest('dist'));
+});
+
 // Build dist
 gulp.task('build', function (callback) {
-  runSequence('clean', ['inject:dist'], callback
-  )
+  runSequence('clean', ['inject:dist'], 'minify-html', callback)
 })
 
 
