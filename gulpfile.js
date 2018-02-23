@@ -101,7 +101,12 @@ gulp.task('vendor', function() {
   gulp.src(['node_modules/jquery.easing/*.js'])
   .pipe(gulp.dest('app/vendor/jquery-easing'))
   
-  gulp.src(['node_modules/magnific-popup/dist/*'])
+  gulp.src(['node_modules/magnific-popup/dist/jquery.magnific-popup.min.js'])
+  .pipe(gulp.dest('app/vendor/magnific-popup'))
+
+  gulp.src(['node_modules/magnific-popup/dist/magnific-popup.css'])
+  .pipe(cleanCSS({ compatibility: 'ie8' }))
+  .pipe(rename({ suffix: '.min' }))
   .pipe(gulp.dest('app/vendor/magnific-popup'))
   
   gulp.src([
