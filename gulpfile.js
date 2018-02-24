@@ -17,9 +17,15 @@ var clean = require('gulp-clean');
 var runSequence = require('run-sequence');
 var htmlmin = require('gulp-htmlmin');
 var newer = require('gulp-newer');
+var concatCss = require('gulp-concat-css');
 
 
-gulp.task('css:sass', function() {
+gulp.task('css:clean', function () {
+  return gulp.src('app/css', { read: false })
+  .pipe(clean());
+})
+
+gulp.task('css:sass', ['css:clean'], function() {
   return gulp.src('app/scss/**/*.scss')
   .pipe(sass())
   .pipe(gulp.dest('app/css'))
@@ -36,12 +42,12 @@ gulp.task('htaccess:dist', function () {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('css:clean', function () {
+gulp.task('css:clean:dist', function () {
   return gulp.src('dist/css', { read: false })
   .pipe(clean());
 })
 
-gulp.task('css:dist', ['css:clean', 'css:sass'], function() {
+gulp.task('css:dist', ['css:clean:dist', 'css:sass'], function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({ compatibility: 'ie8' }))
   .pipe(rename({ suffix: '.min' }))
