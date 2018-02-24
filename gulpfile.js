@@ -18,7 +18,7 @@ var runSequence = require('run-sequence');
 var htmlmin = require('gulp-htmlmin');
 
 
-gulp.task('sass', function() {
+gulp.task('css:sass', function() {
   return gulp.src('app/scss/**/*.scss')
   .pipe(sass())
   .pipe(gulp.dest('app/css'))
@@ -35,7 +35,7 @@ gulp.task('htaccess:dist', function () {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('css:dist', ['sass'], function() {
+gulp.task('css:dist', ['css:sass'], function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({ compatibility: 'ie8' }))
   .pipe(rename({ suffix: '.min' }))
@@ -50,19 +50,25 @@ gulp.task('js:dist', function() {
   .pipe(rename({ suffix: '.min' }))
   .pipe(rev())
   .pipe(gulp.dest('dist/js'))
-  .pipe(browserSync.reload({
-    stream: true
-  }))
+  .pipe(browserSync.reload({ stream: true }))
 });
 
-gulp.task('portfolio-images', function () {
+gulp.task('img:portfolio', function () {
   return gulp.src('app/images/portfolio/**/*.jpg')
   .pipe(imageResize({ width: 1200, height: 675, upscale: false }))
   .pipe(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }) ]))
   .pipe(gulp.dest('dist/images/portfolio'));
 });
 
-gulp.task('other-images', function () {
+gulp.task('img:thumbnail', function () {
+  return gulp.src('app/images/portfolio/**/*.jpg')
+  .pipe(imageResize({ width: 395, height: 285, crop: true, upscale: false }))
+  .pipe(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }) ]))
+  .pipe(rename({ suffix: '-thumb' }))
+  .pipe(gulp.dest('dist/images/portfolio'));
+});
+
+gulp.task('img:other', function () {
   return gulp.src('app/images/*.{gif,png,jpg}')
   .pipe(imageResize({ width: 300, upscale: false }))
   .pipe(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }), imageminPngquant({ quality: 80 }) ]))
@@ -139,19 +145,19 @@ gulp.task('vendor:dist', ['vendor'], function () {
   .pipe(gulp.dest('dist/vendor'));
 });
 
-gulp.task('inject', ['sass'], function () {
+gulp.task('inject', ['css:sass'], function () {
   return gulp.src('app/index.html')
   .pipe(inject(gulp.src('app/css/*.css'), { relative:true } ))
   .pipe(inject(gulp.src('app/js/*.js'), { relative:true } ))
   .pipe(gulp.dest('app'));
 });
 
-gulp.task('images:dist', ['portfolio-images', 'other-images']);
+gulp.task('images:dist', ['img:portfolio', 'img:thumbnail' , 'img:other']);
 
 // Copy everything to dist
 gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'htaccess:dist', 'favicon:dist', 'vendor:dist', 'images:dist', 'mail:dist']);
 
-gulp.task('inject:dist', ['copy:dist'], function () {
+gulp.task('inject:dist', ['html:dist', 'css:dist', 'js:dist'], function () {
   return gulp.src('dist/index.html')
   .pipe(inject(gulp.src('dist/css/*.css'), { relative:true } ))
   .pipe(inject(gulp.src('dist/js/*.js'), { relative:true } ))
@@ -159,15 +165,18 @@ gulp.task('inject:dist', ['copy:dist'], function () {
 });
 
 
-gulp.task('minify-html', function () {
+gulp.task('html:minify', ['inject:dist'], function () {
   return gulp.src('dist/*.html')
   .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))  
-  .pipe(gulp.dest('dist'));
+  .pipe(gulp.dest('dist'))
+  .pipe(browserSync.reload({
+    stream: true
+  }))
 });
 
 // Build dist
 gulp.task('build', function (callback) {
-  runSequence('clean', ['inject:dist'], 'minify-html', callback)
+  runSequence('clean', 'copy:dist', 'html:minify', callback)
 })
 
 
@@ -175,17 +184,14 @@ gulp.task('build', function (callback) {
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
-      baseDir: 'app'
+      baseDir: 'dist'
     },
   })
 })
 
-// Default task
-gulp.task('default', ['vendor', 'inject']);
-
 // Browser Sync for live reloads
-gulp.task('dev', ['browserSync', 'default'], function() {
-  gulp.watch('app/scss/**/*.scss', ['sass']);
-  gulp.watch('app/*.html', browserSync.reload);
-  gulp.watch('app/js/**/*.js', browserSync.reload); 
+gulp.task('dev', ['browserSync', 'build'], function() {
+  gulp.watch('app/scss/**/*.scss', ['css:dist']);
+  gulp.watch('app/*.html', ['html:minify']);
+  gulp.watch('app/js/**/*.js', ['js:dist']); 
 });

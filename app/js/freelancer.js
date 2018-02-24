@@ -80,16 +80,16 @@ $(document).ready(function(){
     dots: true,
     fade: true,
     arrows: false,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: false,
     pauseOnFocus: false,
     mobileFirst: true,
+    slide: 'div',
   });
 
   $('.slider').slickLightbox({
-    src: 'src',
-    itemSelector: '.slick-slide img',
+    itemSelector: 'a',
     navigateByKeyboard: true,
   });
 });
