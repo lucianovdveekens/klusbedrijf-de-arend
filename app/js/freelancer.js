@@ -80,7 +80,7 @@ $(document).ready(function(){
     dots: true,
     fade: true,
     arrows: false,
-    // autoplay: true,
+    autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: false,
     pauseOnFocus: false,

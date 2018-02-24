@@ -16,6 +16,7 @@ var rev = require('gulp-rev');
 var clean = require('gulp-clean');
 var runSequence = require('run-sequence');
 var htmlmin = require('gulp-htmlmin');
+var newer = require('gulp-newer');
 
 
 gulp.task('css:sass', function() {
@@ -35,7 +36,12 @@ gulp.task('htaccess:dist', function () {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('css:dist', ['css:sass'], function() {
+gulp.task('css:clean', function () {
+  return gulp.src('dist/css', { read: false })
+  .pipe(clean());
+})
+
+gulp.task('css:dist', ['css:clean', 'css:sass'], function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({ compatibility: 'ie8' }))
   .pipe(rename({ suffix: '.min' }))
@@ -44,7 +50,12 @@ gulp.task('css:dist', ['css:sass'], function() {
   .pipe(browserSync.reload({ stream: true }))
 });
 
-gulp.task('js:dist', function() {
+gulp.task('js:clean', function () {
+  return gulp.src('dist/js', { read: false })
+  .pipe(clean());
+})
+
+gulp.task('js:dist', ['js:clean'], function() {
   return gulp.src('app/js/*.js')
   .pipe(uglify())
   .pipe(rename({ suffix: '.min' }))
@@ -55,6 +66,7 @@ gulp.task('js:dist', function() {
 
 gulp.task('img:portfolio', function () {
   return gulp.src('app/images/portfolio/**/*.jpg')
+  .pipe(newer('dist/images/portfolio'))
   .pipe(imageResize({ width: 1200, height: 675, upscale: false }))
   .pipe(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }) ]))
   .pipe(gulp.dest('dist/images/portfolio'));
@@ -62,6 +74,7 @@ gulp.task('img:portfolio', function () {
 
 gulp.task('img:thumbnail', function () {
   return gulp.src('app/images/portfolio/**/*.jpg')
+  .pipe(newer('dist/images/portfolio'))
   .pipe(imageResize({ width: 395, height: 285, crop: true, upscale: false }))
   .pipe(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }) ]))
   .pipe(rename({ suffix: '-thumb' }))
@@ -70,6 +83,7 @@ gulp.task('img:thumbnail', function () {
 
 gulp.task('img:other', function () {
   return gulp.src('app/images/*.{gif,png,jpg}')
+  .pipe(newer('dist/images'))
   .pipe(imageResize({ width: 300, upscale: false }))
   .pipe(imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 }), imageminPngquant({ quality: 80 }) ]))
   .pipe(gulp.dest('dist/images'));
@@ -109,7 +123,7 @@ gulp.task('vendor', function() {
   
   gulp.src(['node_modules/magnific-popup/dist/jquery.magnific-popup.min.js'])
   .pipe(gulp.dest('app/vendor/magnific-popup'))
-
+  
   gulp.src(['node_modules/magnific-popup/dist/magnific-popup.css'])
   .pipe(cleanCSS({ compatibility: 'ie8' }))
   .pipe(rename({ suffix: '.min' }))
@@ -176,7 +190,7 @@ gulp.task('html:minify', ['inject:dist'], function () {
 
 // Build dist
 gulp.task('build', function (callback) {
-  runSequence('clean', 'copy:dist', 'html:minify', callback)
+  runSequence('copy:dist', 'html:minify', callback)
 })
 
 
@@ -191,7 +205,7 @@ gulp.task('browserSync', function() {
 
 // Browser Sync for live reloads
 gulp.task('dev', ['browserSync', 'build'], function() {
-  gulp.watch('app/scss/**/*.scss', ['css:dist']);
+  gulp.watch('app/scss/**/*.scss', ['html:minify']);
   gulp.watch('app/*.html', ['html:minify']);
-  gulp.watch('app/js/**/*.js', ['js:dist']); 
+  gulp.watch('app/js/**/*.js', ['html:minify']); 
 });
