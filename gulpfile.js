@@ -186,7 +186,7 @@ gulp.task('vendor:copy', [
 gulp.task('vendor:concat', ['vendor:copy'], function() {
   return gulp.src('app/vendor/**/*.css')
   .pipe(filelog())
-  .pipe(concat('vendor.css'))
+  .pipe(concat('_vendor.css'))
   .pipe(gulp.dest('app/css'))
 })
 
