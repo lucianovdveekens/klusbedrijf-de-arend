@@ -166,10 +166,10 @@ gulp.task('inject', ['css:sass'], function () {
   .pipe(gulp.dest('app'));
 });
 
-gulp.task('images:dist', ['img:portfolio', 'img:thumbnail' , 'img:other']);
+gulp.task('img:dist', ['img:portfolio', 'img:thumbnail' , 'img:other']);
 
 // Copy everything to dist
-gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'htaccess:dist', 'favicon:dist', 'vendor:dist', 'images:dist', 'mail:dist']);
+gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'htaccess:dist', 'favicon:dist', 'vendor:dist', 'img:dist', 'mail:dist']);
 
 gulp.task('inject:dist', ['html:dist', 'css:dist', 'js:dist'], function () {
   return gulp.src('dist/index.html')
@@ -206,6 +206,7 @@ gulp.task('browserSync', function() {
 // Browser Sync for live reloads
 gulp.task('dev', ['browserSync', 'build'], function() {
   gulp.watch('app/scss/**/*.scss', ['html:minify']);
+  gulp.watch('app/images/**/*', ['img:dist']);
   gulp.watch('app/*.html', ['html:minify']);
   gulp.watch('app/js/**/*.js', ['html:minify']); 
 });

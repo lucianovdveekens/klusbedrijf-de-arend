@@ -80,14 +80,14 @@ hr.eagle-dark:after {
 }
 
 hr.eagle-dark:after {
-  background-image: url(../img/eagle-dark.png);
+  background-image: url(../img/eagle-black.png);
 }
 hr.eagle-dark {
   color: $secondary;
 }
 
 hr.eagle-light:after {
-  background-image: url(../img/eagle-light2.png);
+  background-image: url(../img/eagle-white.png);
 }
 hr.eagle-light {
   color: $white;
@@ -242,12 +242,12 @@ section {
 }
 
 .black-logo-hline {
-  background-image: url("../images/eagle-dark.png");  
+  background-image: url("../images/eagle-black.png");  
   color: black;  
 }
 
 .white-logo-hline {
-  background-image: url("../images/eagle-light.png");  
+  background-image: url("../images/eagle-white.png");  
   color: white;
 }
 
