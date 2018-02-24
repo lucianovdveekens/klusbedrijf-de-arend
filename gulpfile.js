@@ -17,7 +17,8 @@ var clean = require('gulp-clean');
 var runSequence = require('run-sequence');
 var htmlmin = require('gulp-htmlmin');
 var newer = require('gulp-newer');
-var concatCss = require('gulp-concat-css');
+var concat = require('gulp-concat');
+var filelog = require('gulp-filelog');
 
 
 gulp.task('css:clean', function () {
@@ -47,7 +48,7 @@ gulp.task('css:clean:dist', function () {
   .pipe(clean());
 })
 
-gulp.task('css:dist', ['css:clean:dist', 'css:sass'], function() {
+gulp.task('css:dist', ['css:clean:dist', 'css:sass', 'vendor:concat'], function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({ compatibility: 'ie8' }))
   .pipe(rename({ suffix: '.min' }))
@@ -107,60 +108,89 @@ gulp.task('mail:dist', function () {
 
 gulp.task('clean', function() {
   return del.sync('dist');
-})
+});
 
-gulp.task('vendor', function() {
-  gulp.src([
+gulp.task('vendor:bootstrap', function() {
+  return gulp.src([
     'node_modules/bootstrap/dist/**/*',
     '!**/npm.js',
     '!**/bootstrap-theme.*',
-    '!**/*.map'
+    '!**/*.map',
+    '!**/*.min.css'
   ])
   .pipe(gulp.dest('app/vendor/bootstrap'))
-  
-  gulp.src([
+});
+
+gulp.task('vendor:jquery', function() {
+  return gulp.src([
     'node_modules/jquery/dist/jquery.js', 
     'node_modules/jquery/dist/jquery.min.js'
   ])
   .pipe(gulp.dest('app/vendor/jquery'))
-  
-  gulp.src(['node_modules/jquery.easing/*.js'])
+});
+
+gulp.task('vendor:jquery.easing', function() {
+  return gulp.src(['node_modules/jquery.easing/*.js'])
   .pipe(gulp.dest('app/vendor/jquery-easing'))
-  
-  gulp.src(['node_modules/magnific-popup/dist/jquery.magnific-popup.min.js'])
+});
+
+gulp.task('vendor:magnific-popup', function() {
+  return gulp.src([
+    'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
+    'node_modules/magnific-popup/dist/magnific-popup.css'
+  ])
   .pipe(gulp.dest('app/vendor/magnific-popup'))
-  
-  gulp.src(['node_modules/magnific-popup/dist/magnific-popup.css'])
-  .pipe(cleanCSS({ compatibility: 'ie8' }))
-  .pipe(rename({ suffix: '.min' }))
-  .pipe(gulp.dest('app/vendor/magnific-popup'))
-  
-  gulp.src([
+});
+
+gulp.task('vendor:font-awesome', function() {
+  return gulp.src([
     'node_modules/font-awesome/**',
     '!node_modules/font-awesome/**/*.map',
     '!node_modules/font-awesome/.npmignore',
     '!node_modules/font-awesome/*.txt',
     '!node_modules/font-awesome/*.md',
-    '!node_modules/font-awesome/*.json'
+    '!node_modules/font-awesome/*.json',
+    '!**/*.min.css'
   ])
   .pipe(gulp.dest('app/vendor/font-awesome'))
-  
-  gulp.src([
+});
+
+gulp.task('vendor:slick-carousel', function() {
+  return gulp.src([
     'bower_components/slick-carousel/slick/**',
     '!bower_components/slick-carousel/slick/slick.js',
     '!bower_components/slick-carousel/slick/*.scss', 
     '!bower_components/slick-carousel/slick/*.rb', 
   ])
   .pipe(gulp.dest('app/vendor/slick-carousel'))
-  
-  gulp.src([
+});
+
+gulp.task('vendor:slick-lightbox', function() {
+  return gulp.src([
     'bower_components/slick-lightbox/dist/slick-lightbox.min.js', 
     'bower_components/slick-lightbox/dist/slick-lightbox.css'
   ])
   .pipe(gulp.dest('app/vendor/slick-lightbox'))
+});
+
+gulp.task('vendor:copy', [
+  'vendor:bootstrap', 
+  'vendor:jquery', 
+  'vendor:jquery.easing', 
+  'vendor:magnific-popup',
+  'vendor:font-awesome',
+  'vendor:slick-carousel',
+  'vendor:slick-lightbox',
+])
+
+gulp.task('vendor:concat', ['vendor:copy'], function() {
+  return gulp.src('app/vendor/**/*.css')
+  .pipe(filelog())
+  .pipe(concat('vendor.css'))
+  .pipe(gulp.dest('app/css'))
 })
 
-gulp.task('vendor:dist', ['vendor'], function () {
+gulp.task('vendor:dist', ['vendor:concat'], function () {
   return gulp.src('app/vendor/**/*')
   .pipe(gulp.dest('dist/vendor'));
 });
@@ -183,7 +213,6 @@ gulp.task('inject:dist', ['html:dist', 'css:dist', 'js:dist'], function () {
   .pipe(inject(gulp.src('dist/js/*.js'), { relative:true } ))
   .pipe(gulp.dest('dist'));
 });
-
 
 gulp.task('html:minify', ['inject:dist'], function () {
   return gulp.src('dist/*.html')

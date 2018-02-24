@@ -42,7 +42,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^3.9.0",
     "gulp-concat": "^2.6.1",
-    "gulp-concat-css": "^3.0.0",
+    "gulp-filelog": "^0.4.1",
     "gulp-filter": "^5.0.1",
     "gulp-header": "^1.8.9",
     "gulp-image-resize": "^0.13.0",
