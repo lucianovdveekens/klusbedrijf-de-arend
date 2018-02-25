@@ -22,11 +22,11 @@ var filelog = require('gulp-filelog');
 
 
 gulp.task('css:clean', function () {
-  return gulp.src('app/css', { read: false })
+  return gulp.src('dist/css/*.css', { read: false })
   .pipe(clean());
 })
 
-gulp.task('css:sass', ['css:clean'], function() {
+gulp.task('css:sass', function() {
   return gulp.src('app/scss/**/*.scss')
   .pipe(sass())
   .pipe(gulp.dest('app/css'))
@@ -43,12 +43,7 @@ gulp.task('htaccess:dist', function () {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('css:clean:dist', function () {
-  return gulp.src('dist/css', { read: false })
-  .pipe(clean());
-})
-
-gulp.task('css:dist', ['css:clean:dist', 'css:sass', 'vendor:concat'], function() {
+gulp.task('css:dist', function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({ compatibility: 'ie8' }))
   .pipe(rename({ suffix: '.min' }))
@@ -232,28 +227,28 @@ gulp.task('copy:dist', [
   'htaccess:dist', 
   'favicon:dist', 
   'img:dist', 
-  'mail:dist'
+  'mail:dist',
+  'font:dist'
 ]);
 
 gulp.task('inject:dist', function () {
   return gulp.src('dist/index.html')
   .pipe(inject(gulp.src('dist/css/*.css'), { relative:true } ))
   .pipe(inject(gulp.src('dist/js/*.js'), { relative:true } ))
-  .pipe(gulp.dest('dist'));
-});
-
-gulp.task('html:minify', ['inject:dist'], function () {
-  return gulp.src('dist/*.html')
-  .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))  
+  .pipe(htmlmin({ collapseWhitespace: true }))
   .pipe(gulp.dest('dist'))
   .pipe(browserSync.reload({
     stream: true
-  }))
+  }));
 });
 
 // Build dist
-gulp.task('build', function (callback) {
-  runSequence('copy:dist', 'font:dist', 'html:minify', callback)
+gulp.task('build', function () {
+  runSequence(
+    ['css:clean', 'css:sass', 'vendor:concat'], 
+    'copy:dist',  
+    'inject:dist'
+  )
 })
 
 
@@ -268,8 +263,12 @@ gulp.task('browserSync', function() {
 
 // Browser Sync for live reloads
 gulp.task('dev', ['browserSync', 'build'], function() {
-  gulp.watch('app/scss/**/*.scss', ['html:minify']);
+  gulp.watch('app/scss/**/*.scss', function () {
+    runSequence('css:clean', 'css:sass', 'css:dist', 'inject:dist')
+  });
   gulp.watch('app/images/**/*', ['img:dist']);
-  gulp.watch('app/*.html', ['html:minify']);
+  gulp.watch('app/*.html', function () {
+    runSequence('html:dist', 'inject:dist')
+  });
   gulp.watch('app/js/**/*.js', ['html:minify']); 
 });
