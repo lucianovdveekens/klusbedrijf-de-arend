@@ -185,15 +185,34 @@ gulp.task('vendor:copy', [
 
 gulp.task('vendor:concat', ['vendor:copy'], function() {
   return gulp.src('app/vendor/**/*.css')
-  .pipe(filelog())
   .pipe(concat('_vendor.css'))
   .pipe(gulp.dest('app/css'))
 })
 
-gulp.task('vendor:dist', ['vendor:concat'], function () {
+gulp.task('vendor:dist', function () {
   return gulp.src('app/vendor/**/*')
   .pipe(gulp.dest('dist/vendor'));
 });
+
+gulp.task('font:slick-carousel', function() {
+  return gulp.src([
+    'app/vendor/slick-carousel/fonts/slick.ttf',
+    'app/vendor/slick-carousel/fonts/slick.woff'
+  ])
+  .pipe(gulp.dest('dist/css/fonts'))
+});
+
+gulp.task('font:ajax-loader-gif', function() {
+  return gulp.src('app/vendor/slick-carousel/ajax-loader.gif')
+  .pipe(gulp.dest('dist/css'))
+});
+
+gulp.task('font:font-awesome', function() {
+  return gulp.src('app/vendor/font-awesome/fonts/*')
+  .pipe(gulp.dest('dist/fonts'))
+});
+
+gulp.task('font:dist', ['font:slick-carousel', 'font:ajax-loader-gif', 'font:font-awesome']);
 
 gulp.task('inject', ['css:sass'], function () {
   return gulp.src('app/index.html')
@@ -205,9 +224,18 @@ gulp.task('inject', ['css:sass'], function () {
 gulp.task('img:dist', ['img:portfolio', 'img:thumbnail' , 'img:other']);
 
 // Copy everything to dist
-gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'htaccess:dist', 'favicon:dist', 'vendor:dist', 'img:dist', 'mail:dist']);
+gulp.task('copy:dist', [
+  'html:dist', 
+  'css:dist', 
+  'js:dist', 
+  'vendor:dist',
+  'htaccess:dist', 
+  'favicon:dist', 
+  'img:dist', 
+  'mail:dist'
+]);
 
-gulp.task('inject:dist', ['html:dist', 'css:dist', 'js:dist'], function () {
+gulp.task('inject:dist', function () {
   return gulp.src('dist/index.html')
   .pipe(inject(gulp.src('dist/css/*.css'), { relative:true } ))
   .pipe(inject(gulp.src('dist/js/*.js'), { relative:true } ))
@@ -225,7 +253,7 @@ gulp.task('html:minify', ['inject:dist'], function () {
 
 // Build dist
 gulp.task('build', function (callback) {
-  runSequence('copy:dist', 'html:minify', callback)
+  runSequence('copy:dist', 'font:dist', 'html:minify', callback)
 })
 
 
