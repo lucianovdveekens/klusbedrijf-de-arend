@@ -258,7 +258,20 @@ gulp.task('critical', function () {
   .pipe(critical({ 
     base: './dist', 
     inline: true,  
-    css: ['dist/css-tmp/_vendor.min.css', 'dist/css-tmp/klusbedrijf.min.css'] 
+    css: ['dist/css-tmp/_vendor.min.css', 'dist/css-tmp/klusbedrijf.min.css'],
+    dimensions: [{
+      width: 320,
+      height: 480
+    },{
+      width: 768,
+      height: 1024
+    },{
+      width: 1280,
+      height: 960
+    }, {
+      width: 1920,
+      height: 1080
+    }]
   }))
   .pipe(gulp.dest('dist'));
 });
