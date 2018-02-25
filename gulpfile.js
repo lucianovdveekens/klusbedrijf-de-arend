@@ -19,6 +19,7 @@ var htmlmin = require('gulp-htmlmin');
 var newer = require('gulp-newer');
 var concat = require('gulp-concat');
 var filelog = require('gulp-filelog');
+var critical = require('critical').stream;
 
 
 gulp.task('css:clean', function () {
@@ -47,8 +48,7 @@ gulp.task('css:dist', function() {
   return gulp.src('app/css/*.css')
   .pipe(cleanCSS({ compatibility: 'ie8' }))
   .pipe(rename({ suffix: '.min' }))
-  .pipe(rev())
-  .pipe(gulp.dest('dist/css'))
+  .pipe(gulp.dest('dist/css-tmp'))
   .pipe(browserSync.reload({ stream: true }))
 });
 
@@ -103,6 +103,10 @@ gulp.task('mail:dist', function () {
 
 gulp.task('clean', function() {
   return del.sync('dist');
+});
+
+gulp.task('clean-css-tmp', function() {
+  return del.sync('dist/css-tmp');
 });
 
 gulp.task('vendor:bootstrap', function() {
@@ -242,11 +246,31 @@ gulp.task('inject:dist', function () {
   }));
 });
 
+gulp.task('revision', function () {
+  return gulp.src('dist/css-tmp/*.css')
+  .pipe(rev())
+  .pipe(gulp.dest('dist/css'));
+});
+
+// Generate & Inline Critical-path CSS
+gulp.task('critical', function () {
+  return gulp.src('dist/*.html')
+  .pipe(critical({ 
+    base: './dist', 
+    inline: true,  
+    css: ['dist/css-tmp/_vendor.min.css', 'dist/css-tmp/klusbedrijf.min.css'] 
+  }))
+  .pipe(gulp.dest('dist'));
+});
+
 // Build dist
 gulp.task('build', function () {
   runSequence(
     ['css:clean', 'css:sass', 'vendor:concat'], 
     'copy:dist',  
+    'critical',
+    'revision',
+    'clean-css-tmp',
     'inject:dist'
   )
 })
@@ -264,11 +288,11 @@ gulp.task('browserSync', function() {
 // Browser Sync for live reloads
 gulp.task('dev', ['browserSync', 'build'], function() {
   gulp.watch('app/scss/**/*.scss', function () {
-    runSequence('css:clean', 'css:sass', 'css:dist', 'inject:dist')
+    runSequence('css:clean', 'css:sass', 'css:dist', 'critical', 'inject:dist')
   });
   gulp.watch('app/images/**/*', ['img:dist']);
   gulp.watch('app/*.html', function () {
-    runSequence('html:dist', 'inject:dist')
+    runSequence('html:dist', 'critical', 'inject:dist')
   });
   gulp.watch('app/js/**/*.js', ['html:minify']); 
 });
