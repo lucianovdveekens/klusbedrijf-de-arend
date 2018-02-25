@@ -12,8 +12,3 @@ AddOutputFilterByType DEFLATE application/x-javascript
  <filesMatch ".(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
  Header set Cache-Control "max-age=31536000, public"
  </filesMatch>
-  
- # 10 MINUTES for pages
- <filesMatch ".(html|htm)$">
- Header set Cache-Control "max-age=600, must-revalidate"
- </filesMatch>
