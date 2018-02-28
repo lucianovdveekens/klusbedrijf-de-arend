@@ -20,6 +20,7 @@ var newer = require('gulp-newer');
 var concat = require('gulp-concat');
 var filelog = require('gulp-filelog');
 var critical = require('critical').stream;
+var sourcemaps = require('gulp-sourcemaps');
 
 
 gulp.task('css:clean', function () {
@@ -29,7 +30,9 @@ gulp.task('css:clean', function () {
 
 gulp.task('css:sass', function() {
   return gulp.src('app/scss/**/*.scss')
+  .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(sass())
+  .pipe(sourcemaps.write())
   .pipe(gulp.dest('app/css'))
   .pipe(browserSync.reload({ stream: true }))
 });
@@ -46,7 +49,9 @@ gulp.task('htaccess:dist', function () {
 
 gulp.task('css:dist', function() {
   return gulp.src('app/css/*.css')
+  .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(cleanCSS({ compatibility: 'ie8' }))
+  .pipe(sourcemaps.write())
   .pipe(rename({ suffix: '.min' }))
   .pipe(gulp.dest('dist/css-tmp'))
   .pipe(browserSync.reload({ stream: true }))
@@ -184,7 +189,9 @@ gulp.task('vendor:copy', [
 
 gulp.task('vendor:concat', ['vendor:copy'], function() {
   return gulp.src('app/vendor/**/*.css')
+  .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(concat('_vendor.css'))
+  .pipe(sourcemaps.write())
   .pipe(gulp.dest('app/css'))
 })
 
