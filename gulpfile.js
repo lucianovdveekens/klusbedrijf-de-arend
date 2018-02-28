@@ -50,9 +50,9 @@ gulp.task('htaccess:dist', function () {
 gulp.task('css:dist', function() {
   return gulp.src('app/css/*.css')
   .pipe(sourcemaps.init({ loadMaps: true }))
+  .pipe(concat('styles.css'))
   .pipe(cleanCSS({ compatibility: 'ie8' }))
   .pipe(sourcemaps.write())
-  .pipe(rename({ suffix: '.min' }))
   .pipe(gulp.dest('dist/css-tmp'))
   .pipe(browserSync.reload({ stream: true }))
 });
@@ -246,7 +246,7 @@ gulp.task('inject:dist', function () {
   return gulp.src('dist/index.html')
   .pipe(inject(gulp.src('dist/css/*.css'), { relative:true } ))
   .pipe(inject(gulp.src('dist/js/*.js'), { relative:true } ))
-  .pipe(htmlmin({ collapseWhitespace: true }))
+  .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
   .pipe(gulp.dest('dist'))
   .pipe(browserSync.reload({
     stream: true
@@ -265,7 +265,7 @@ gulp.task('critical', function () {
   .pipe(critical({ 
     base: './dist', 
     inline: true,  
-    css: ['dist/css-tmp/_vendor.min.css', 'dist/css-tmp/klusbedrijf.min.css'],
+    css: ['dist/css-tmp/styles.css'],
     dimensions: [{
       width: 320,
       height: 480
