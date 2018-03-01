@@ -271,19 +271,6 @@ gulp.task('critical', function () {
     base: './dist', 
     inline: true,  
     css: ['dist/css-tmp/styles.css'],
-    dimensions: [{
-      width: 320,
-      height: 480
-    },{
-      width: 768,
-      height: 1024
-    },{
-      width: 1280,
-      height: 960
-    }, {
-      width: 1920,
-      height: 1080
-    }]
   }))
   .pipe(gulp.dest('dist'));
 });
