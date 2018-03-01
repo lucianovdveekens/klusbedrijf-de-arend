@@ -24,13 +24,13 @@ var sourcemaps = require('gulp-sourcemaps');
 
 
 gulp.task('css:clean', function () {
-  return gulp.src('dist/css/*.css', { read: false })
+  return gulp.src('dist/css/*', { read: false })
   .pipe(clean());
 })
 
 gulp.task('css:sass', function() {
   return gulp.src('app/scss/**/*.scss')
-  .pipe(sourcemaps.init({ loadMaps: true }))
+  .pipe(sourcemaps.init())
   .pipe(sass())
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('app/css'))
@@ -48,11 +48,11 @@ gulp.task('htaccess:dist', function () {
 });
 
 gulp.task('css:dist', function() {
-  return gulp.src('app/css/*.css')
+  return gulp.src('app/css/*')
   .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(concat('styles.css'))
   .pipe(cleanCSS({ compatibility: 'ie8' }))
-  .pipe(sourcemaps.write())
+  .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('dist/css-tmp'))
   .pipe(browserSync.reload({ stream: true }))
 });
@@ -189,7 +189,7 @@ gulp.task('vendor:copy', [
 
 gulp.task('vendor:concat', ['vendor:copy'], function() {
   return gulp.src('app/vendor/**/*.css')
-  .pipe(sourcemaps.init({ loadMaps: true }))
+  .pipe(sourcemaps.init())
   .pipe(concat('_vendor.css'))
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('app/css'))
@@ -256,7 +256,12 @@ gulp.task('inject:dist', function () {
 gulp.task('revision', function () {
   return gulp.src('dist/css-tmp/*.css')
   .pipe(rev())
-  .pipe(gulp.dest('dist/css'));
+  .pipe(gulp.dest('dist/css'))
+});
+
+gulp.task('copy-sourcemap', function () {
+  return gulp.src('dist/css-tmp/*.css.map')
+  .pipe(gulp.dest('dist/css'))
 });
 
 // Generate & Inline Critical-path CSS
@@ -290,6 +295,7 @@ gulp.task('build', function () {
     'copy:dist',  
     'critical',
     'revision',
+    'copy-sourcemap',
     'clean-css-tmp',
     'inject:dist'
   )
