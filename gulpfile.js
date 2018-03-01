@@ -19,7 +19,7 @@ var htmlmin = require('gulp-htmlmin');
 var newer = require('gulp-newer');
 var concat = require('gulp-concat');
 var filelog = require('gulp-filelog');
-var critical = require('critical').stream;
+var critical = require('critical');
 var sourcemaps = require('gulp-sourcemaps');
 
 
@@ -266,13 +266,26 @@ gulp.task('copy-sourcemap', function () {
 
 // Generate & Inline Critical-path CSS
 gulp.task('critical', function () {
-  return gulp.src('dist/*.html')
-  .pipe(critical({ 
-    base: './dist', 
-    inline: true,  
-    css: ['dist/css-tmp/styles.css'],
-  }))
-  .pipe(gulp.dest('dist'));
+  critical.generate({
+    inline: true,
+    minify: true,
+    base: 'dist',
+    src: 'index.html',
+    dest: 'index.html',
+    dimensions: [{
+      width: 320,
+      height: 480
+    },{
+      width: 768,
+      height: 1024
+    },{
+      width: 1280,
+      height: 960
+    }, {
+      width: 1920,
+      height: 1080
+    }]
+  });
 });
 
 // Build dist
@@ -280,11 +293,11 @@ gulp.task('build', function () {
   runSequence(
     ['css:clean', 'css:sass', 'vendor:concat'], 
     'copy:dist',  
-    'critical',
     'revision',
     'copy-sourcemap',
     'clean-css-tmp',
-    'inject:dist'
+    'inject:dist',
+    'critical'
   )
 })
 
