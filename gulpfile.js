@@ -242,10 +242,14 @@ gulp.task('copy:dist', [
   'font:dist'
 ]);
 
+var deferScripts = function (filepath, file, i, length) {
+  return '<script defer src="' + filepath + '"></script>';
+}
+
 gulp.task('inject:dist', function () {
   return gulp.src('dist/index.html')
   .pipe(inject(gulp.src('dist/css/*.css'), { relative:true } ))
-  .pipe(inject(gulp.src('dist/js/*.js'), { relative:true } ))
+  .pipe(inject(gulp.src('dist/js/*.js'), { relative:true, transform: deferScripts }))
   .pipe(htmlmin({ collapseWhitespace: true, removeComments: true }))
   .pipe(gulp.dest('dist'))
   .pipe(browserSync.reload({
