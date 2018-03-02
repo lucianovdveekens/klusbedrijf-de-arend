@@ -205,11 +205,6 @@ gulp.task('concat-vendor-js', ['vendor:copy'], function() {
   .pipe(gulp.dest('app/js'))
 })
 
-gulp.task('vendor:dist', function () {
-  return gulp.src('app/vendor/**/*')
-  .pipe(gulp.dest('dist/vendor'));
-});
-
 gulp.task('font:slick-carousel', function() {
   return gulp.src([
     'app/vendor/slick-carousel/fonts/slick.ttf',
@@ -244,7 +239,6 @@ gulp.task('copy:dist', [
   'html:dist', 
   'css:dist', 
   'js:dist', 
-  'vendor:dist',
   'htaccess:dist', 
   'favicon:dist', 
   'img:dist', 
