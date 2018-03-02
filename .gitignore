@@ -6,3 +6,4 @@ vendor
 css
 *.min.js
 dist
+_vendor.js

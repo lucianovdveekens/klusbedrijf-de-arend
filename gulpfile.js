@@ -64,9 +64,11 @@ gulp.task('js:clean', function () {
 
 gulp.task('js:dist', ['js:clean'], function() {
   return gulp.src('app/js/*.js')
+  .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(uglify())
-  .pipe(rename({ suffix: '.min' }))
+  .pipe(concat('scripts.js'))
   .pipe(rev())
+  .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('dist/js'))
   .pipe(browserSync.reload({ stream: true }))
 });
@@ -187,12 +189,20 @@ gulp.task('vendor:copy', [
   'vendor:slick-lightbox',
 ])
 
-gulp.task('vendor:concat', ['vendor:copy'], function() {
+gulp.task('concat-vendor-css', ['vendor:copy'], function() {
   return gulp.src('app/vendor/**/*.css')
   .pipe(sourcemaps.init())
   .pipe(concat('_vendor.css'))
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('app/css'))
+})
+
+gulp.task('concat-vendor-js', ['vendor:copy'], function() {
+  return gulp.src('app/vendor/**/*.js')
+  .pipe(sourcemaps.init())
+  .pipe(concat('_vendor.js'))
+  .pipe(sourcemaps.write())
+  .pipe(gulp.dest('app/js'))
 })
 
 gulp.task('vendor:dist', function () {
@@ -295,7 +305,7 @@ gulp.task('critical', function () {
 // Build dist
 gulp.task('build', function () {
   runSequence(
-    ['css:clean', 'css:sass', 'vendor:concat'], 
+    ['css:clean', 'css:sass', 'concat-vendor-css', 'concat-vendor-js'], 
     'copy:dist',  
     'revision',
     'copy-sourcemap',
@@ -324,5 +334,5 @@ gulp.task('dev', ['browserSync', 'build'], function() {
   gulp.watch('app/*.html', function () {
     runSequence('html:dist', 'critical', 'inject:dist')
   });
-  gulp.watch('app/js/**/*.js', ['html:minify']); 
+  // gulp.watch('app/js/**/*.js', ['html:minify']); 
 });
