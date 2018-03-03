@@ -6,4 +6,5 @@ vendor
 css
 *.min.js
 dist
+tmp
 _vendor.js
