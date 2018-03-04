@@ -9,6 +9,7 @@ var del = require('del');
 var inject = require('gulp-inject');
 var imagemin = require('gulp-imagemin');
 var imageminMozjpeg = require('imagemin-mozjpeg');
+var imageminPngquant = require('imagemin-pngquant');
 var imageResize = require('gulp-image-resize');
 var rev = require('gulp-rev');
 var htmlmin = require('gulp-htmlmin');
@@ -69,13 +70,17 @@ gulp.task('html', function() {
   .pipe(gulp.dest(paths.tmp))
 });
 
-var compressJPG = () => imagemin([ imagemin.jpegtran({ progressive: true }), imageminMozjpeg({ quality: 80 })])
+var compress = () => imagemin([ 
+  imagemin.jpegtran({ progressive: true }), 
+  imageminMozjpeg({ quality: 80 }),
+  imageminPngquant({ quality: 80 })
+])
 
 gulp.task('portfolio', function () {
   return gulp.src(paths.srcPortfolio)
   .pipe(newer(paths.tmpPortfolio))
   .pipe(imageResize({ width: 1200, height: 675, upscale: false }))
-  .pipe(compressJPG())
+  .pipe(compress())
   .pipe(gulp.dest(paths.tmpPortfolio));
 });
 
@@ -83,19 +88,15 @@ gulp.task('thumbnail', function () {
   return gulp.src(paths.srcPortfolio)
   .pipe(newer(paths.tmpPortfolio))
   .pipe(imageResize({ width: 395, height: 285, crop: true, upscale: false }))
-  .pipe(compressJPG())
+  .pipe(compress())
   .pipe(rename({ suffix: '-thumb' }))
   .pipe(gulp.dest(paths.tmpPortfolio));
 });
 
 gulp.task('compress-images', ['portfolio', 'thumbnail'], function() {
-  const jpgFilter = filter('src/images/*.jpg', { restore: true });
   return gulp.src(paths.srcIMG)
-  .pipe(jpgFilter)
   .pipe(newer(paths.tmpIMG))
-  .pipe(imageResize({ width: 300, upscale: false }))
-  .pipe(compressJPG())
-  .pipe(jpgFilter.restore)
+  .pipe(compress())
   .pipe(gulp.dest(paths.tmpIMG));
 });
 
@@ -209,7 +210,7 @@ gulp.task('portfolio:dist', function () {
   return gulp.src(paths.srcPortfolio)
   .pipe(newer(paths.distPortfolio))
   .pipe(imageResize({ width: 1200, height: 675, upscale: false }))
-  .pipe(compressJPG())
+  .pipe(compress())
   .pipe(gulp.dest(paths.distPortfolio));
 });
 
@@ -217,19 +218,15 @@ gulp.task('thumbnail:dist', function () {
   return gulp.src(paths.srcPortfolio)
   .pipe(newer(paths.distPortfolio))
   .pipe(imageResize({ width: 395, height: 285, crop: true, upscale: false }))
-  .pipe(compressJPG())
+  .pipe(compress())
   .pipe(rename({ suffix: '-thumb' }))
   .pipe(gulp.dest(paths.distPortfolio));
 });
 
 gulp.task('compress-images:dist', ['portfolio:dist', 'thumbnail:dist'], function() {
-  const jpgFilter = filter('src/images/*.jpg', { restore: true });
   return gulp.src(paths.srcIMG)
-  .pipe(jpgFilter)
   .pipe(newer(paths.distIMG))
-  .pipe(imageResize({ width: 300, upscale: false }))
-  .pipe(compressJPG())
-  .pipe(jpgFilter.restore)
+  .pipe(compress())
   .pipe(gulp.dest(paths.distIMG));
 });
 
