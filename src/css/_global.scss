@@ -145,8 +145,13 @@ section {
   }
 }
 
-.header-image {
-  max-width: 50%;
+#header-img {
+  width: 244px;
+  height: 146px;
+  background-image: url(../images/header.png);
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 // *** LOGO

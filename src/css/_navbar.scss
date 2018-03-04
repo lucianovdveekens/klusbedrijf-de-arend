@@ -30,9 +30,13 @@
     }
   }
   
-  .navbar-image {
+  #navbar-icon {
+    display: inline-block;
     width: 30px;
-    height: 30px; 
+    height: 30px;
+    background-image: url(../images/eagle-white.png); 
+    background-size: cover;
+    vertical-align: middle;
   }
 }
 
@@ -81,7 +85,7 @@
       }
     }
     
-    .navbar-image {
+    #navbar-icon {
       width: 60px;
       height: 60px;
     }
