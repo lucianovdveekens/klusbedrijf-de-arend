@@ -1,0 +1,74 @@
+.slick-slide:not(.slick-lightbox-slick-item) {
+    height: 100%;
+    position: relative; 
+    cursor: pointer;
+}
+
+.slick-slide img:not(.slick-lightbox-slick-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute; 
+}
+
+.slider img {
+    // Set the height of images in the projects to 0 to improve rendering.
+    // The images will receive their actual height later in the rendering process when 
+    // Slick starts adding its own divs and classes.
+    height: 0;
+}
+
+.slider {
+    position: relative;
+    margin: auto;
+    
+    width: 80%;
+    /* 40:29 Aspect Ratio */
+    padding-top: calc((29/40) * 80%);
+    
+    
+    @media (min-width: 576px) {
+        width: 100%;
+        /* 40:29 Aspect Ratio */
+        padding-top: calc((29/40) * 100%);
+    }
+}  
+
+.slider .slick-list {
+    border: 2px solid white;  
+    
+	height:100%;
+	position:absolute !important;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+}
+
+.slick-track {
+    height: 100%;
+}
+
+.slick-dots li.slick-active button:before {
+    content: '•';
+}
+
+.slick-dots li button:before {
+    content: '◦';
+    color: white !important;
+    font-size: 40px;
+    opacity: 1 !important;
+    font-family: 'Times New Roman';
+}
+
+.slick-dots li {
+    margin: 0 !important;
+}
+
+.slick-slider {
+    margin-bottom: 30px;
+}
+
+.slick-dots {
+    bottom: -5px;
+}
