@@ -238,7 +238,6 @@ gulp.task('critical-css', ['concat-assets'], function () {
   .pipe(critical({
     inline: true,
     minify: true,
-    inlineImages: true,
     base: 'dist',
     src: 'index.html',
     dest: 'index.html',
