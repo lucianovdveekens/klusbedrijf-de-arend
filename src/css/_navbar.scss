@@ -1,0 +1,96 @@
+// Styling for the navbar
+#mainNav {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  @include heading-font;
+  .navbar-brand {
+    font-size: 1em;
+    color: $white;
+  }
+  .navbar-nav {
+    margin-top: 1rem;
+    letter-spacing: 0.0625rem;
+    li.nav-item {
+      a.nav-link {
+        color: $white;
+        &:active,
+        &:focus {
+          color: $white;
+        }
+      }
+    }
+  }
+  .navbar-toggler {
+    font-size: 0.8rem;
+    padding: 0.8rem;
+    
+    background: $primary !important;
+    &:active {
+      background: #0062cc !important;
+    }
+  }
+  
+  .navbar-image {
+    width: 30px;
+    height: 30px; 
+  }
+}
+
+
+@media (max-width: 320px) {
+  .navbar {
+    button {
+      font-size: 0px !important;
+    }
+    button > i {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #mainNav .navbar-brand {
+    font-size: 1.5em;
+  }
+}
+
+@media(min-width:992px) {
+  #mainNav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
+    -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
+    transition: padding-top 0.3s, padding-bottom 0.3s;
+    .navbar-brand {
+      font-size: 2em;
+      -webkit-transition: font-size 0.3s;
+      -moz-transition: font-size 0.3s;
+      transition: font-size 0.3s;
+    }
+    .navbar-nav {
+      margin-top: 0;
+    }
+    .navbar-nav > li.nav-item > a.nav-link.active {
+      color: $white;
+      background: $primary;
+      &:active,
+      &:focus,
+      &:hover {
+        color: $white;
+        background: $primary;
+      }
+    }
+    
+    .navbar-image {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  #mainNav.navbar-shrink {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    .navbar-brand {
+      font-size: 1.5em;
+    }
+  }
+}

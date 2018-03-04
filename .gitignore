@@ -3,7 +3,6 @@ bower_components
 vendor
 .DS_Store
 *.min.css
-css
 *.min.js
 dist
 tmp
