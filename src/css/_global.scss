@@ -145,8 +145,13 @@ section {
   }
 }
 
-.header-image {
-  max-width: 50%;
+.header-image svg {
+  width: 50%;
+  max-width: 260px;
+  
+  path {
+    fill: white !important;
+  }
 }
 
 // *** LOGO
@@ -157,7 +162,7 @@ section {
   display: block;
   overflow: hidden;
   text-align: center;
-
+  
   background-repeat: no-repeat;
   background-position: center;
   background-size: 60px 60px;

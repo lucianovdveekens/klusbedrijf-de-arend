@@ -10,6 +10,7 @@ var inject = require('gulp-inject');
 var imagemin = require('gulp-imagemin');
 var imageminMozjpeg = require('imagemin-mozjpeg');
 var imageminPngquant = require('imagemin-pngquant');
+var imageminSvgo = require('imagemin-svgo');
 var imageResize = require('gulp-image-resize');
 var rev = require('gulp-rev');
 var htmlmin = require('gulp-htmlmin');
@@ -30,7 +31,7 @@ var paths = {
   srcSCSS: 'src/**/*.scss',
   srcCSS: 'src/**/*.css',
   srcJS: 'src/**/*.js',
-  srcIMG: 'src/images/*.{png,jpg,ico}',
+  srcIMG: 'src/images/*.{png,jpg,ico,svg}',
   srcPortfolio: 'src/images/portfolio/**/*.jpg',
   
   tmp: 'tmp',

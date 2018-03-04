@@ -70,6 +70,7 @@
     "gulp-webserver": "^0.9.1",
     "imagemin-mozjpeg": "^7.0.0",
     "imagemin-pngquant": "^5.0.1",
+    "imagemin-svgo": "^6.0.0",
     "jshint": "^2.9.5",
     "path": "^0.12.7",
     "rimraf": "^2.6.2",
