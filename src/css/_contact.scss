@@ -1,7 +1,7 @@
 // Styling for the contact section
 .floating-label-form-group {
   position: relative;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid $white;
   input,
   textarea {
     font-size: 1.25em;
@@ -28,7 +28,7 @@
     -ms-transition: top 0.3s ease, opacity 0.3s ease;
     transition: top 0.3s ease, opacity 0.3s ease;
     vertical-align: middle;
-    vertical-align: baseline;
+    // vertical-align: baseline;
     opacity: 0;
   }
   &:not(:first-child) {
@@ -79,4 +79,17 @@ form .row:first-child .floating-label-form-group {
 
 #contact-row {
   justify-content: space-evenly;
+}
+
+.form-control {
+  color: #fff !important;
+  background-color: $primary
+}
+
+.form-control:focus {
+  background-color: $primary !important;
+}
+
+.floating-label-form-group-with-value label {
+  color: $white;
 }

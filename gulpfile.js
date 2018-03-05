@@ -33,6 +33,7 @@ var paths = {
   srcJS: 'src/**/*.js',
   srcIMG: 'src/images/*.{png,jpg,ico,svg}',
   srcPortfolio: 'src/images/portfolio/**/*.jpg',
+  srcReviews: 'src/images/reviews/**/*.jpg',
   
   tmp: 'tmp',
   tmpIndex: 'tmp/index.html',
@@ -40,13 +41,15 @@ var paths = {
   tmpJS: 'tmp/**/*.js',
   tmpIMG: 'tmp/images',  
   tmpPortfolio: 'tmp/images/portfolio',  
+  tmpReviews: 'tmp/images/reviews', 
   
   dist: 'dist',
   distIndex: 'dist/index.html',
   distCSS: 'dist/**/*.css',
   distJS: 'dist/**/*.js',
   distIMG: 'dist/images',    
-  distPortfolio: 'dist/images/portfolio'  
+  distPortfolio: 'dist/images/portfolio',
+  distReviews: 'dist/images/reviews'  
 };
 
 /*
@@ -85,6 +88,14 @@ gulp.task('portfolio', function () {
   .pipe(gulp.dest(paths.tmpPortfolio));
 });
 
+gulp.task('reviews', function () {
+  return gulp.src(paths.srcReviews)
+  .pipe(newer(paths.tmpReviews))
+  .pipe(imageResize({ width: 470, height: 341, crop: true, upscale: false }))
+  .pipe(compress())
+  .pipe(gulp.dest(paths.tmpReviews));
+});
+
 gulp.task('thumbnail', function () {
   return gulp.src(paths.srcPortfolio)
   .pipe(newer(paths.tmpPortfolio))
@@ -94,7 +105,7 @@ gulp.task('thumbnail', function () {
   .pipe(gulp.dest(paths.tmpPortfolio));
 });
 
-gulp.task('compress-images', ['portfolio', 'thumbnail'], function() {
+gulp.task('compress-images', ['portfolio', 'reviews', 'thumbnail'], function() {
   return gulp.src(paths.srcIMG)
   .pipe(newer(paths.tmpIMG))
   .pipe(compress())
@@ -220,6 +231,14 @@ gulp.task('portfolio:dist', function () {
   .pipe(gulp.dest(paths.distPortfolio));
 });
 
+gulp.task('reviews:dist', function () {
+  return gulp.src(paths.srcReviews)
+  .pipe(newer(paths.distReviews))
+  .pipe(imageResize({ width: 470, height: 341, crop: true, upscale: false }))
+  .pipe(compress())
+  .pipe(gulp.dest(paths.distReviews));
+});
+
 gulp.task('thumbnail:dist', function () {
   return gulp.src(paths.srcPortfolio)
   .pipe(newer(paths.distPortfolio))
@@ -229,7 +248,7 @@ gulp.task('thumbnail:dist', function () {
   .pipe(gulp.dest(paths.distPortfolio));
 });
 
-gulp.task('compress-images:dist', ['portfolio:dist', 'thumbnail:dist'], function() {
+gulp.task('compress-images:dist', ['portfolio:dist', 'reviews:dist', 'thumbnail:dist'], function() {
   return gulp.src(paths.srcIMG)
   .pipe(newer(paths.distIMG))
   .pipe(compress())

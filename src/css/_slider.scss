@@ -1,10 +1,10 @@
-.slick-slide:not(.slick-lightbox-slick-item) {
+.slider .slick-slide:not(.slick-lightbox-slick-item) {
     height: 100%;
     position: relative; 
     cursor: pointer;
 }
 
-.slick-slide img:not(.slick-lightbox-slick-img) {
+.slider .slick-slide img:not(.slick-lightbox-slick-img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -16,6 +16,10 @@
     // The images will receive their actual height later in the rendering process when 
     // Slick starts adding its own divs and classes.
     height: 0;
+}
+
+.slick-slider {
+    margin-bottom: 0px;
 }
 
 .slider {
@@ -58,10 +62,134 @@
     margin: 0 !important;
 }
 
-.slick-slider {
-    margin-bottom: 30px;
-}
+
 
 .slick-dots {
     bottom: -5px;
+}
+
+$sm-arrow: 40px;
+$md-arrow: 60px;
+$lg-arrow: 80px;
+
+#review-slider .slick-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-left: 0px;
+    margin-right: 0px;
+    
+    padding-left: $sm-arrow;
+    padding-right: $sm-arrow;
+    
+    .review-description, .review-image {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: 30px;
+    }
+    
+    @media (min-width: 576px) {
+        padding-left: $md-arrow;
+        padding-right: $md-arrow;   
+        
+        .review-description, .review-image {
+            padding-left: 20px;
+            padding-right: 20px;
+        }    
+    }
+    
+    @media (min-width: 768px) {
+        padding-left: $lg-arrow;
+        padding-right: $lg-arrow;
+        
+        .review-description, .review-image {
+            padding-left: 40px;
+            padding-right: 40px;
+        }    
+    }
+    
+    @media (min-width: 992px) {
+        .review-description, .review-image {
+            padding-left: 40px;
+            padding-right: 40px;
+        }   
+    }
+}
+
+#review-slider {
+    
+    .slick-prev {
+        left: 0px;
+    }
+    
+    .slick-prev:before {
+        content: '\f104';
+    }
+    
+    .slick-next {
+        right: 0px;
+    }
+    
+    .slick-next:before {
+        content: '\f105';
+    }
+    
+    .slick-next, .slick-prev {
+        width: $sm-arrow;
+        height: $sm-arrow;
+        margin-top: $sm-arrow / -2;
+    }
+    
+    .slick-prev:before, .slick-next:before {
+        color: $secondary;
+        
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        
+        font-size: $sm-arrow;
+        width: $sm-arrow;
+        height: $sm-arrow;   
+    }
+    
+    img {
+        margin: auto;
+        width: 100%;
+        
+        // @media (min-width: 768px) {
+            // width: 100%;
+        // }
+
+        @media (min-width: 992px) {
+            // width: 90%;
+        }
+    }
+    
+    @media (min-width: 576px) {
+        .slick-prev, .slick-next {
+            width: $md-arrow;
+            height: $md-arrow;
+            margin-top: $md-arrow / -2;
+        }
+        
+        .slick-prev:before, .slick-next:before {
+            font-size: $md-arrow;
+            width: $md-arrow;
+            height: $md-arrow;   
+        }
+    }
+    
+    @media (min-width: 768px) { 
+        .slick-prev, .slick-next {
+            width: $lg-arrow;
+            height: $lg-arrow;
+            margin-top: $lg-arrow / -2;
+        }
+        
+        .slick-prev:before, .slick-next:before {
+            font-size: $lg-arrow;
+            width: $lg-arrow;
+            height: $lg-arrow;   
+        }
+    }
 }
