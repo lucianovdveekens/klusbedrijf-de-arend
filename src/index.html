@@ -191,76 +191,71 @@
     <div class="container">
       <h2 class="text-center text-secondary mb-0">Contact</h2>
       <div class="black-logo-hline"></div>
+      
       <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-          <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-          <form name="sentMessage" id="contactForm" novalidate="novalidate">
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Naam</label>
-                <input class="form-control" id="name" type="text" placeholder="Naam" required="required" data-validation-required-message="Vul uw naam in.">
-                <p class="help-block text-danger"></p>
+        <div class="col-lg-6 mb-4 px-5">
+          <div class="row h-100">
+            <div class="col-md-6 col-lg-12 mb-4">
+              <h5 class="mb-4">Adres</h5>
+              <p class="lead">Klusbedrijf De Arend
+                <br>Eline Vereplantsoen 14
+                <br>1507 PN Zaandam
+                <br>
+                <br>+31 6 83915993
+                <br>info@klusbedrijfdearend.nl
+                <br>
+                <br>KvK: 70506671
               </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>E-mailadres</label>
-                <input class="form-control" id="email" type="email" placeholder="E-mailadres" required="required" data-validation-required-message="Vul uw e-mailadres in.">
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Telefoonnummer</label>
-                <input class="form-control" id="phone" type="tel" placeholder="Telefoonnummer" required="required" data-validation-required-message="Vul uw telefoonnummer in.">
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Bericht</label>
-                <textarea class="form-control" id="message" rows="5" placeholder="Bericht" required="required" data-validation-required-message="Het bericht is leeg."></textarea>
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <br>
-            <div id="success"></div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Verstuur</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Footer -->
-  <footer class="footer text-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 mb-5 mb-lg-0">
-          <h4 class="mb-4">Adres</h4>
-          <p class="lead mb-0">Klusbedrijf De Arend
-            <br>Eline Vereplantsoen 14
-            <br>1507 PN Zaandam
-            <br>
-            <br>+31 6 83915993
-            <br>info@klusbedrijfdearend.nl
-            <br>
-            <br>KvK: 70506671
-          </div>
-          <div class="col-md-6 mb-5 mb-lg-0">  
-            <div id="map-container">
-              <div id="map" class="aspect-ratio-box">
+              <div id="map-container" class="col-md-6 col-lg-12">
+                <div id="map" class="h-100 black-border"></div>
               </div>
             </div>
           </div>
+          
+          <div class="col-lg-6 mb-4 px-5">
+            <h5 class="mb-4">E-mail</h5>
+            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+            <form name="sentMessage" id="contactForm" novalidate="novalidate">
+              <div class="control-group">
+                <div class="form-group controls mb-0">
+                  <label>Naam</label>
+                  <input class="form-control" id="name" type="text" required="required" data-validation-required-message="Vul uw naam in.">
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group controls mb-0">
+                  <label>E-mailadres</label>
+                  <input class="form-control" id="email" type="email" required="required" data-validation-required-message="Vul uw e-mailadres in.">
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group controls mb-0">
+                  <label>Telefoonnummer</label>
+                  <input class="form-control" id="phone" type="tel" required="required" data-validation-required-message="Vul uw telefoonnummer in.">
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group controls mb-0">
+                  <label>Bericht</label>
+                  <textarea class="form-control" id="message" rows="6" required="required" data-validation-required-message="Het bericht is leeg."></textarea>
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+              <div id="success"></div>
+              <div class="form-group mb-0">
+                <button type="submit" class="btn btn-primary btn-lg" id="sendMessageButton">Versturen</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </footer>
+    </section>
     
-    <div class="copyright pb-3 text-center text-white">
+    <div class="copyright py-4 text-center text-white">
       <div class="container">
         <small>&copy; Klusbedrijf De Arend Zaandam 2018</small>
       </div>

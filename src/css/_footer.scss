@@ -10,24 +10,6 @@
   background-color: darken($secondary, 10%);
 }
 
-#map-container {
-  max-width: 25rem;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  max-height: 100%;
-  
-  color: black;
-  
-  #content {
-    font-family: 'Montserrat';
-    #title {
-      font-weight: 700;
-    }
-  }
-}
-
 .aspect-ratio-box {
   position: relative;
   margin: 0 auto;
@@ -40,6 +22,15 @@
     width: 100%;
     padding-top: calc((29/40) * 100%);
   }
+}
+
+.tryout-box {
+  position: relative;
+  margin: 0 auto;
+  
+  /* 4:3 Aspect Ratio */
+  width: 100%;
+  padding-top: calc((10/16) * 100%);
 }
 
 .aspect-ratio-box > iframe {

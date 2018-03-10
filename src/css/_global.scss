@@ -161,3 +161,39 @@ section {
   left: 2.5em;
   margin-right: -50%;
 }
+
+.px-6 {
+  padding-left: 4rem !important;
+  padding-right: 4rem !important;
+}
+
+.px-7 {
+  padding-left: 5rem !important;
+  padding-right: 5rem !important;
+}
+
+.px-8 {
+  padding-left: 6rem !important;
+  padding-right: 6rem !important;
+}
+
+.black-border {
+  border: 2px solid black;
+}
+
+#map-container {
+  // equals mb-4
+  margin-bottom: 1.5rem;
+
+  @media (min-width: 992px) {
+    margin-bottom: 0rem;
+  }
+}
+
+#map {
+  min-height: 250px;
+}
+
+textarea {
+  resize: none;
+}
