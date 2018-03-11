@@ -7,3 +7,4 @@ vendor
 dist
 tmp
 _vendor.js
+.vscode
