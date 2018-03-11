@@ -22,16 +22,9 @@
     position: relative;
     margin: auto;
     
-    width: 80%;
-    /* 40:29 Aspect Ratio */
-    padding-top: calc((29/40) * 80%);
-    
-    
-    @media (min-width: 576px) {
-        width: 100%;
-        /* 40:29 Aspect Ratio */
-        padding-top: calc((29/40) * 100%);
-    }
+    width: 100%;
+    // /* 40:29 Aspect Ratio */
+    padding-top: calc((29/40) * 100%);
 }  
 
 .slider .slick-list {
