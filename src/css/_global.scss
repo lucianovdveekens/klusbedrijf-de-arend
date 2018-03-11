@@ -197,3 +197,14 @@ section {
 textarea {
   resize: none;
 }
+
+#success {
+  position: relative;
+  width: 100%;
+
+  .alert {
+    position: absolute;
+    z-index: 1041;
+    width: 100%;
+  }
+}
