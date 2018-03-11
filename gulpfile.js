@@ -178,9 +178,14 @@ gulp.task('htaccess:dist', function() {
   .pipe(gulp.dest('dist'))
 });
 
+gulp.task('mail:dist', function() {
+  return gulp.src('src/mail/*')
+  .pipe(gulp.dest('dist/mail'))
+});
+
 gulp.task('vendor:dist', ['ajax-loader-gif', 'webfonts', 'slick-fonts']);
 
-gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'htaccess:dist', 'vendor:dist']);
+gulp.task('copy:dist', ['html:dist', 'css:dist', 'js:dist', 'htaccess:dist', 'vendor:dist', 'mail:dist']);
 
 gulp.task('inject:dist', ['copy:dist'], function () {
   return gulp.src(paths.distIndex)
