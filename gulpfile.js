@@ -90,7 +90,7 @@ gulp.task('thumbnail', function () {
   .pipe(newer(paths.tmpPortfolio))
   .pipe(imageResize({ width: 541, height: 391, crop: true, upscale: false }))
   .pipe(compress())
-  .pipe(rename({ suffix: '-thumb' }))
+  .pipe(rename({ suffix: '-thumbnail' }))
   .pipe(gulp.dest(paths.tmpPortfolio));
 });
 
@@ -225,7 +225,7 @@ gulp.task('thumbnail:dist', function () {
   .pipe(newer(paths.distPortfolio))
   .pipe(imageResize({ width: 541, height: 391, crop: true, upscale: false }))
   .pipe(compress())
-  .pipe(rename({ suffix: '-thumb' }))
+  .pipe(rename({ suffix: '-thumbnail' }))
   .pipe(gulp.dest(paths.distPortfolio));
 });
 
