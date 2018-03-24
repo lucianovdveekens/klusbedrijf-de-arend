@@ -90,4 +90,10 @@ $(document).ready(function(){
     itemSelector: 'a',
     navigateByKeyboard: true,
   });
+
+  $('#review-slider').slick({
+    dots: false,
+    arrows: true,
+    mobileFirst: true
+  });
 });

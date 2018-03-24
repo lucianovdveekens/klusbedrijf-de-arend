@@ -45,7 +45,21 @@ a {
   &:hover,
   &:focus,
   &:active {
-    background-color: darken($secondary, 10%);
-    border-color: darken($secondary, 10%);
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 10%);
+  }
+}
+
+.btn-custom {
+  color: $primary;
+  background-color: #fff;
+  border-color: #fff;
+  font-weight: 700;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: darken(#fff, 15%);
+    border-color: darken(#fff, 15%);
   }
 }
