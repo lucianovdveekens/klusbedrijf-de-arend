@@ -94,6 +94,7 @@ $(document).ready(function(){
   $('#review-slider').slick({
     dots: false,
     arrows: true,
-    mobileFirst: true
+    mobileFirst: true,
+    adaptiveHeight: true
   });
 });
