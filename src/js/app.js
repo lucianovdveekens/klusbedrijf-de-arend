@@ -78,7 +78,7 @@ $(document).ready(function(){
   $('.slider').slick({
     dots: true,
     arrows: false,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 10000,
     pauseOnHover: false,
     pauseOnFocus: false,
