@@ -1,8 +1,13 @@
 .slider .slick-slide:not(.slick-lightbox-slick-item) {
     height: 100%;
     position: relative; 
-    cursor: pointer;
+    
+    a {
+        cursor: zoom-in;
+    }
 }
+
+
 
 .slider .slick-slide img:not(.slick-lightbox-slick-img) {
     width: 100%;
